@@ -14,3 +14,29 @@ async function loadRatings(){const {data,error}=await supabaseClient.from("docto
 if(ratingForm)ratingForm.addEventListener("submit",async e=>{e.preventDefault();const {error}=await supabaseClient.from("doctor_ratings").insert({rating:Number(ratingValue.value),display_name:document.querySelector("#rating-name").value.trim()||"রোগী",comment:document.querySelector("#rating-comment").value.trim(),status:"pending"});if(error){ratingMessage.textContent="রেটিং জমা হয়নি। আবার চেষ্টা করুন।";return;}ratingMessage.textContent="ধন্যবাদ! যাচাইয়ের পর রেটিং প্রকাশ করা হবে।";ratingForm.reset();setStars(5);});
 loadRatings();
 const year=document.querySelector("#year");if(year)year.textContent=String(new Date().getFullYear());
+/* Bengali / English language switch */
+const languageButton=document.querySelector("#language-toggle");
+const translations=[
+["হোম","Home"],["পরিচিতি","About"],["সেবাসমূহ","Services"],["রেটিং","Ratings"],["অ্যাপয়েন্টমেন্ট","Appointment"],["যোগাযোগ","Contact"],["যোগাযোগ করুন","Contact Us"],["যত্ন, মনোযোগ ও আস্থার সঙ্গে","Care, attention and trust"],["আপনার সুস্থতার যত্নে,","Your health, our care,"],["আস্থার সঙ্গে","With confidence"],["স্বাস্থ্য সম্পর্কে জানুন, আপনার কথা বলুন এবং যত্নের পরবর্তী ধাপটি বুঝে নিন—সহজ ভাষায়, আন্তরিকতার সঙ্গে।","Learn about your health, share your concerns, and understand the next step in care—in simple, reassuring language."],["অ্যাপয়েন্টমেন্টের জন্য যোগাযোগ করুন","Contact for an appointment"],["সেবাসমূহ দেখুন","Explore services"],["রোগীর কথা আগে","Patients first"],["মনোযোগী ও মানবিক যত্ন","Attentive, compassionate care"],["বিশেষত্ব","Specialty"],["মেডিসিন ও ডায়াবেটিস","Medicine & Diabetes"],["চেম্বারের সময়","Chamber hours"],["চেম্বারের ঠিকানা","Chamber address"],["পরিচিতি","About"],["স্বাস্থ্যসেবায়","In healthcare"],["সহজ কথা,","Clear communication,"],["মনোযোগী যত্ন","Attentive care"],["রোগীর মতামত","Patient reviews"],["আপনার অভিজ্ঞতা জানান","Share your experience"],["আপনার রেটিং দিন","Rate your experience"],["রেটিং জমা দিন","Submit rating"],["কথা বলতে চান?","Would you like to talk?"],["যোগাযোগের ফর্ম","Contact form"],["আপনার নাম","Your name"],["ফোন নম্বর","Phone number"],["পছন্দের তারিখ","Preferred date"],["যোগাযোগের ধরন","Reason for contact"],["বার্তা","Message"],["ফর্ম জমা দিন","Submit form"]
+];
+const originalTexts=[];
+function setLanguage(lang){
+ document.documentElement.lang=lang==="en"?"en":"bn";
+ document.querySelectorAll("body *").forEach(el=>{
+  if(el.children.length===0 && el.textContent.trim()){
+   if(!el.dataset.originalText)el.dataset.originalText=el.textContent;
+   let value=el.dataset.originalText;
+   if(lang==="en") for(const [bn,en] of translations)value=value.split(bn).join(en);
+   el.textContent=value;
+  }
+ });
+ document.querySelectorAll("input[placeholder],textarea[placeholder]").forEach(el=>{
+  if(!el.dataset.originalPlaceholder)el.dataset.originalPlaceholder=el.placeholder;
+  let v=el.dataset.originalPlaceholder;
+  if(lang==="en")for(const [bn,en] of translations)v=v.split(bn).join(en);
+  el.placeholder=v;
+ });
+ if(languageButton){languageButton.textContent=lang==="en"?"বাংলা":"EN";languageButton.setAttribute("aria-label",lang==="en"?"বাংলায় পরিবর্তন করুন":"Switch to English");}
+ sessionStorage.setItem("doctor-site-language",lang);
+}
+if(languageButton){languageButton.addEventListener("click",()=>setLanguage(document.documentElement.lang==="bn"?"en":"bn"));}
