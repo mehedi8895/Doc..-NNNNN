@@ -51,3 +51,8 @@ if(uploadDoctorPhotoButton)uploadDoctorPhotoButton.addEventListener("click",asyn
  finally{uploadDoctorPhotoButton.disabled=false;}
 });
 loadCurrentDoctorPhoto();
+
+/* Show a local preview as soon as a replacement file is selected. */
+if(logoFile&&logoPreview)logoFile.addEventListener("change",()=>{const file=logoFile.files&&logoFile.files[0];if(file)logoPreview.src=URL.createObjectURL(file);});
+if(doctorPhotoFile&&doctorPhotoPreview)doctorPhotoFile.addEventListener("change",()=>{const file=doctorPhotoFile.files&&doctorPhotoFile.files[0];if(file)doctorPhotoPreview.src=URL.createObjectURL(file);});
+
