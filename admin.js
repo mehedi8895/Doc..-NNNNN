@@ -23,3 +23,5 @@ if(uploadLogoButton)uploadLogoButton.addEventListener("click",async()=>{
  }catch(err){console.error(err);logoMessage.textContent="লোগো সেভ হয়নি। Supabase SQL setup ও Storage policy ঠিক আছে কি না দেখুন।";}
  finally{uploadLogoButton.disabled=false;}
 });
+
+loadCurrentLogo();
