@@ -22,3 +22,7 @@ Do not expose a service-role key or store any password in frontend code. The bro
 - Only published ratings appear on the public page.
 
 The site has not been deployed or tested in a live browser as requested; deploy from GitHub yourself and then test with a created admin account.
+
+
+## Logo management (added)
+The admin dashboard includes a logo uploader. Run the updated `admin-setup.sql` in the Supabase SQL Editor to create the `doctor_site_settings` table, public `doctor-assets` bucket, and policies. Only a user listed in `doctor_admins` can upload or change the logo.
