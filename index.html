@@ -9,19 +9,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/medicare-logo.png">
+  <link rel="apple-touch-icon" href="assets/medicare-logo.png">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="-banner" role="note"><span aria-hidden="true">ⓘ</span>  ওয়েবসাইট — এখানে দেখানো ডাক্তার ও চিকিৎসাসংক্রান্ত সব তথ্য কাল্পনিক।</div>
   <header class="site-header">
     <nav class="nav container" aria-label="প্রধান নেভিগেশন">
       <a class="brand" href="#home" aria-label="ডা. নাওরিন ইসলাম, হোম">
         <img class="brand-logo" src="assets/medicare-logo.png" alt="MediCare লোগো">
         <span><strong>ডা. নাওরিন ইসলাম</strong><small>মেডিসিন ও ডায়াবেটিস <i>· </i></small></span>
       </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="মেনু খুলুন"><span></span><span></span><span></span></button>
+      <button class="lang-toggle" id="language-toggle" type="button" aria-label="Switch language">EN</button><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="মেনু খুলুন"><span></span><span></span><span></span></button>
       <div class="nav-links" id="nav-links">
         <a href="#home">হোম</a><a href="#about">পরিচিতি</a><a href="#services">সেবাসমূহ</a><a href="#ratings">রেটিং</a><a href="#appointment">অ্যাপয়েন্টমেন্ট</a><a href="#contact">যোগাযোগ</a>
         <a class="nav-cta" href="#appointment">যোগাযোগ করুন <span aria-hidden="true">↗</span></a>
@@ -58,10 +59,10 @@
       <div class="container about-grid">
         <div class="section-intro"><span class="eyebrow">পরিচিতি <span class="eyebrow-line"></span></span><h2>স্বাস্থ্যসেবায় <span>সহজ কথা,</span><br>মনোযোগী যত্ন</h2><p>সুস্থতা নিয়ে প্রশ্ন থাকলে পরিষ্কারভাবে বুঝতে পারা গুরুত্বপূর্ণ। এই  প্রোফাইলে রোগীর কথা শোনা, তথ্য সহজভাবে বোঝানো এবং নিয়মিত যত্নের গুরুত্ব তুলে ধরা হয়েছে।</p><a class="text-link" href="#appointment">যোগাযোগের তথ্য দেখুন <span aria-hidden="true">→</span></a></div>
         <div class="about-details">
-          <p>ডা. নাওরিন ইসলাম সাধারণ স্বাস্থ্য সমস্যা, ডায়াবেটিস এবং দীর্ঘমেয়াদি রোগের যত্নে রোগীদের সহায়তা করেন। তিনি রোগীর কথা মনোযোগ দিয়ে শোনেন এবং সহজ ভাষায় স্বাস্থ্যবিষয়ক তথ্য ও পরামর্শ দেন। <span class="-tag">কাল্পনিক পরিচিতি</span></p>
+          <p>ডা. নাওরিন ইসলাম সাধারণ স্বাস্থ্য সমস্যা, ডায়াবেটিস এবং দীর্ঘমেয়াদি রোগের যত্নে রোগীদের সহায়তা করেন। তিনি রোগীর কথা মনোযোগ দিয়ে শোনেন এবং সহজ ভাষায় স্বাস্থ্যবিষয়ক তথ্য ও পরামর্শ দেন। </p>
           <div class="credential"><span class="credential-icon" aria-hidden="true">✚</span><div><small>যোগ্যতা · কাল্পনিক</small><strong>এমবিবিএস, এমডি (মেডিসিন)</strong></div></div>
           <div class="credential"><span class="credential-icon" aria-hidden="true">♡</span><div><small>বিশেষত্ব · কাল্পনিক</small><strong>মেডিসিন ও ডায়াবেটিস বিশেষজ্ঞ</strong></div></div>
-          <p class="disclaimer-small">এই পরিচিতি, যোগ্যতা ও বিশেষত্ব বাস্তব চিকিৎসকের তথ্য নয়।</p>
+          
         </div>
       </div>
     </section>
@@ -99,6 +100,6 @@
       </div>
     </section>
   </main>
-  <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="#home"><img class="brand-logo" src="assets/medicare-logo.png" alt="MediCare লোগো"><span><strong>ডা. নাওরিন ইসলাম</strong><small>মেডিসিন ও ডায়াবেটিস · </small></span></a><div class="footer-links"><a href="#home">হোম</a><a href="#about">পরিচিতি</a><a href="#services">সেবাসমূহ</a><a href="#ratings">রেটিং</a><a href="#appointment">যোগাযোগ</a></div><div class="footer-contact"><a href="tel:01700000000">০১৭০০-০০০০০০ <small> ফোন</small></a><a href="mailto:nawrin.@example.com">nawrin.@example.com</a></div></div><div class="container footer-bottom"><p> ওয়েবসাইট — এখানে দেখানো ডাক্তার ও চিকিৎসাসংক্রান্ত সব তথ্য কাল্পনিক।</p><span>© <span id="year">2026</span> ডা. নাওরিন ইসলাম ·  পোর্টফোলিও</span></div></footer>
+  <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="#home"><img class="brand-logo" src="assets/medicare-logo.png" alt="MediCare লোগো"><span><strong>ডা. নাওরিন ইসলাম</strong><small>মেডিসিন ও ডায়াবেটিস · </small></span></a><div class="footer-links"><a href="#home">হোম</a><a href="#about">পরিচিতি</a><a href="#services">সেবাসমূহ</a><a href="#ratings">রেটিং</a><a href="#appointment">যোগাযোগ</a></div><div class="footer-contact"><a href="tel:01700000000">০১৭০০-০০০০০০ <small> ফোন</small></a><a href="mailto:nawrin.@example.com">nawrin.@example.com</a></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> ডা. নাওরিন ইসলাম ·  পোর্টফোলিও</span></div></footer>
 </body>
 </html>
