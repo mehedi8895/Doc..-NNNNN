@@ -86,43 +86,6 @@ function setLanguage(lang){
  if(languageEn)languageEn.classList.toggle("is-active",lang==="en");
  try{sessionStorage.setItem("doctor-site-language",lang);}catch(e){}
 }
-/* Translate new content such as form confirmations and ratings after language selection. */
-let translatingMutation=false;
-const languageObserver=new MutationObserver(records=>{
- if(translatingMutation)return;
- const lang=document.documentElement.lang==="en"?"en":"bn";
- if(lang!=="en")return;
- translatingMutation=true;
- for(const record of records)for(const node of record.addedNodes){
-  if(node.nodeType===Node.TEXT_NODE && node.textContent.trim())node.textContent=translateValue(node.textContent,"en");
-  else if(node.nodeType===Node.ELEMENT_NODE){
-   if(node.children.length===0 && node.textContent.trim()){if(!node.dataset.originalText)node.dataset.originalText=node.textContent;node.textContent=translateValue(node.dataset.originalText,"en");}
-   node.querySelectorAll("*").forEach(el=>{if(el.children.length===0&&el.textContent.trim()){if(!el.dataset.originalText)el.dataset.originalText=el.textContent;el.textContent=translateValue(el.dataset.originalText,"en");}});
-  }
- }
- translatingMutation=false;
-});
-languageObserver.observe(document.body,{childList:true,subtree:true});
-
- document.documentElement.lang=lang==="en"?"en":"bn";
- document.querySelectorAll("body *").forEach(el=>{
-  if(el.children.length===0 && el.textContent.trim()){
-   if(!el.dataset.originalText)el.dataset.originalText=el.textContent;
-   let value=el.dataset.originalText;
-   if(lang==="en") for(const [bn,en] of translations)value=value.split(bn).join(en);
-   el.textContent=value;
-  }
- });
- document.querySelectorAll("input[placeholder],textarea[placeholder]").forEach(el=>{
-  if(!el.dataset.originalPlaceholder)el.dataset.originalPlaceholder=el.placeholder;
-  let v=el.dataset.originalPlaceholder;
-  if(lang==="en")for(const [bn,en] of translations)v=v.split(bn).join(en);
-  el.placeholder=v;
- });
- if(languageBn)languageBn.classList.toggle("is-active",lang==="bn");
- if(languageEn)languageEn.classList.toggle("is-active",lang==="en");
- sessionStorage.setItem("doctor-site-language",lang);
-}
 if(languageBn)languageBn.addEventListener("click",()=>setLanguage("bn"));
 if(languageEn)languageEn.addEventListener("click",()=>setLanguage("en"));
 setLanguage(sessionStorage.getItem("doctor-site-language")==="en"?"en":"bn");
