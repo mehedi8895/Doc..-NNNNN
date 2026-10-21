@@ -25,3 +25,29 @@ if(uploadLogoButton)uploadLogoButton.addEventListener("click",async()=>{
 });
 
 loadCurrentLogo();
+
+/* Administrator-managed main-page doctor portrait */
+const doctorPhotoFile=document.querySelector("#doctor-photo-file"),uploadDoctorPhotoButton=document.querySelector("#upload-doctor-photo-button"),doctorPhotoMessage=document.querySelector("#doctor-photo-message"),doctorPhotoPreview=document.querySelector("#doctor-photo-preview");
+async function loadCurrentDoctorPhoto(){
+ const {data,error}=await db.from("doctor_site_settings").select("doctor_photo_url").eq("id",1).maybeSingle();
+ if(!error&&data&&data.doctor_photo_url&&doctorPhotoPreview)doctorPhotoPreview.src=data.doctor_photo_url;
+}
+if(uploadDoctorPhotoButton)uploadDoctorPhotoButton.addEventListener("click",async()=>{
+ const file=doctorPhotoFile?.files?.[0];
+ if(!file){doctorPhotoMessage.textContent="আগে ডাক্তারের ছবি নির্বাচন করুন।";return;}
+ if(file.size>5*1024*1024){doctorPhotoMessage.textContent="ছবিটি ৫ MB-এর মধ্যে রাখুন।";return;}
+ if(!["image/png","image/jpeg","image/webp"].includes(file.type)){doctorPhotoMessage.textContent="JPG, PNG বা WebP ছবি ব্যবহার করুন।";return;}
+ uploadDoctorPhotoButton.disabled=true;doctorPhotoMessage.textContent="ডাক্তারের ছবি আপলোড হচ্ছে…";
+ try{
+  const ext=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg";
+  const path="doctor-portrait-"+Date.now()+"."+ext;
+  const uploaded=await db.storage.from("doctor-assets").upload(path,file,{upsert:true,contentType:file.type,cacheControl:"3600"});
+  if(uploaded.error)throw uploaded.error;
+  const {data}=db.storage.from("doctor-assets").getPublicUrl(path);
+  const saved=await db.from("doctor_site_settings").upsert({id:1,doctor_photo_url:data.publicUrl,updated_at:new Date().toISOString()},{onConflict:"id"});
+  if(saved.error)throw saved.error;
+  doctorPhotoPreview.src=data.publicUrl;doctorPhotoMessage.textContent="ডাক্তারের ছবি সেভ হয়েছে। মূল ওয়েবসাইটে দেখানো হবে।";
+ }catch(err){console.error(err);doctorPhotoMessage.textContent="ছবি সেভ হয়নি। Supabase Storage permission যাচাই করুন।";}
+ finally{uploadDoctorPhotoButton.disabled=false;}
+});
+loadCurrentDoctorPhoto();
