@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -22,7 +23,7 @@
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="মেনু খুলুন"><span></span><span></span><span></span></button>
       <div class="nav-links" id="nav-links">
-        <a href="#home">হোম</a><a href="#about">পরিচিতি</a><a href="#services">সেবাসমূহ</a><a href="#appointment">অ্যাপয়েন্টমেন্ট</a><a href="#contact">যোগাযোগ</a>
+        <a href="#home">হোম</a><a href="#about">পরিচিতি</a><a href="#services">সেবাসমূহ</a><a href="#ratings">রেটিং</a><a href="#appointment">অ্যাপয়েন্টমেন্ট</a><a href="#contact">যোগাযোগ</a>
         <a class="nav-cta" href="#appointment">যোগাযোগ করুন <span aria-hidden="true">↗</span></a>
       </div>
     </nav>
@@ -75,9 +76,10 @@
         </div>
       </div>
     </section>
+    <section class="section rating-section" id="ratings"><div class="container"><div class="section-heading"><div><span class="eyebrow">রোগীর মতামত</span><h2>আপনার অভিজ্ঞতা <span>জানান</span></h2></div><p>রেটিং যাচাইয়ের পর প্রকাশ করা হবে।</p></div><div class="rating-layout"><div class="rating-summary"><div class="rating-stars" id="rating-average-stars">☆☆☆☆☆</div><strong id="rating-average">— / 5</strong><span id="rating-count">এখনো কোনো প্রকাশিত রেটিং নেই</span><div id="rating-list" class="rating-list"></div></div><form class="rating-form" id="rating-form"><h3>আপনার রেটিং দিন</h3><label for="rating-name">আপনার নাম</label><input id="rating-name" maxlength="80" placeholder="নাম (ঐচ্ছিক)"><label>স্টার রেটিং</label><div class="star-picker"><button type="button" data-rating="1">☆</button><button type="button" data-rating="2">☆</button><button type="button" data-rating="3">☆</button><button type="button" data-rating="4">☆</button><button type="button" data-rating="5">☆</button></div><input id="rating-value" type="hidden" value="5"><label for="rating-comment">মতামত (ঐচ্ছিক)</label><textarea id="rating-comment" maxlength="1000" rows="3"></textarea><button class="button button-primary" type="submit">রেটিং জমা দিন →</button><p class="form-note" id="rating-message" role="status">যাচাইয়ের পর প্রকাশ করা হবে।</p></form></div></div></section>
     <section class="section appointment-section" id="appointment">
       <div class="container appointment-grid">
-        <div class="appointment-copy"><span class="eyebrow eyebrow-light">অ্যাপয়েন্টমেন্ট <span class="eyebrow-line"></span></span><h2>কথা বলতে চান?<br><span>যোগাযোগ করুন</span></h2><p>নিচের ফর্মটি শুধু  দেখানোর জন্য। এখানে দেওয়া কোনো তথ্য কোথাও পাঠানো বা সংরক্ষণ করা হবে না।</p>
+        <div class="appointment-copy"><span class="eyebrow eyebrow-light">অ্যাপয়েন্টমেন্ট <span class="eyebrow-line"></span></span><h2>কথা বলতে চান?<br><span>যোগাযোগ করুন</span></h2><p>ফর্ম পূরণ করে অ্যাপয়েন্টমেন্টের আবেদন পাঠান।</p>
           <div class="contact-list" id="contact">
             <div class="contact-item"><span aria-hidden="true">⌖</span><div><small>চেম্বার · কাল্পনিক</small><strong>সিটি কেয়ার ক্লিনিক, ঢাকা</strong></div></div>
             <div class="contact-item"><span aria-hidden="true">◷</span><div><small>সময় · কাল্পনিক</small><strong>শনি–বৃহস্পতি, বিকেল ৫টা–রাত ৮টা</strong></div></div>
@@ -92,11 +94,11 @@
           <div class="form-row"><div><label for="preferred-date">পছন্দের তারিখ</label><input id="preferred-date" name="date" type="date"></div><div><label for="contact-reason">যোগাযোগের ধরন</label><select id="contact-reason" name="reason"><option value="সাধারণ যোগাযোগ">সাধারণ যোগাযোগ</option><option value="চেম্বার সম্পর্কে">চেম্বার সম্পর্কে</option><option value="অনলাইন পরামর্শ">অনলাইন পরামর্শ</option></select></div></div>
           <label for="patient-message">বার্তা <span class="optional">(ঐচ্ছিক)</span></label><textarea id="patient-message" name="message" rows="3" placeholder="সংক্ষিপ্ত বার্তা লিখুন"></textarea>
           <button class="button button-primary submit-button" type="submit"> ফর্ম জমা দিন <span aria-hidden="true">→</span></button>
-          <p class="form-note" id="form-message" role="status" aria-live="polite">এটি একটি  form—আপনার তথ্য কোথাও পাঠানো হবে না।</p>
+          <p class="form-note" id="form-message" role="status" aria-live="polite">আপনার আবেদন জমা দিন।</p>
         </form>
       </div>
     </section>
   </main>
-  <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="#home"><img class="brand-logo" src="assets/medicare-logo.png" alt="MediCare লোগো"><span><strong>ডা. নাওরিন ইসলাম</strong><small>মেডিসিন ও ডায়াবেটিস · </small></span></a><div class="footer-links"><a href="#home">হোম</a><a href="#about">পরিচিতি</a><a href="#services">সেবাসমূহ</a><a href="#appointment">যোগাযোগ</a></div><div class="footer-contact"><a href="tel:01700000000">০১৭০০-০০০০০০ <small> ফোন</small></a><a href="mailto:nawrin.@example.com">nawrin.@example.com</a></div></div><div class="container footer-bottom"><p> ওয়েবসাইট — এখানে দেখানো ডাক্তার ও চিকিৎসাসংক্রান্ত সব তথ্য কাল্পনিক।</p><span>© <span id="year">2026</span> ডা. নাওরিন ইসলাম ·  পোর্টফোলিও</span></div></footer>
+  <footer class="site-footer"><div class="container footer-main"><a class="brand footer-brand" href="#home"><img class="brand-logo" src="assets/medicare-logo.png" alt="MediCare লোগো"><span><strong>ডা. নাওরিন ইসলাম</strong><small>মেডিসিন ও ডায়াবেটিস · </small></span></a><div class="footer-links"><a href="#home">হোম</a><a href="#about">পরিচিতি</a><a href="#services">সেবাসমূহ</a><a href="#ratings">রেটিং</a><a href="#appointment">যোগাযোগ</a></div><div class="footer-contact"><a href="tel:01700000000">০১৭০০-০০০০০০ <small> ফোন</small></a><a href="mailto:nawrin.@example.com">nawrin.@example.com</a></div></div><div class="container footer-bottom"><p> ওয়েবসাইট — এখানে দেখানো ডাক্তার ও চিকিৎসাসংক্রান্ত সব তথ্য কাল্পনিক।</p><span>© <span id="year">2026</span> ডা. নাওরিন ইসলাম ·  পোর্টফোলিও</span></div></footer>
 </body>
 </html>
