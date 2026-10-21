@@ -3,3 +3,13 @@
 .brand-logo{width:48px;height:48px;object-fit:contain;flex-shrink:0}.doctor-photo-card{width:min(500px,100%);padding:0;overflow:hidden;background:#fff;border-radius:24px;box-shadow:0 24px 65px rgba(28,76,93,.14)}.doctor-photo{display:block;width:100%;height:auto;aspect-ratio:1.2;object-fit:cover;object-position:center}.footer-brand .brand-logo{width:46px;height:46px}@media(max-width:780px){.doctor-photo-card{width:min(500px,100%)}.doctor-photo{aspect-ratio:1.15}}
 
 .rating-section{background:#f5fafb}.rating-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px}.rating-summary,.rating-form{background:#fff;border:1px solid #e1ebef;border-radius:20px;padding:24px}.rating-stars,.rating-card-stars{color:#e7a72e;letter-spacing:3px;font-size:24px}.rating-summary>strong{display:block;font-size:30px;color:#123b56;margin:8px 0}.rating-summary>span{color:#627783;font-size:14px}.rating-form h3{margin-top:0}.rating-form label{display:block;font-size:14px;font-weight:600;margin:14px 0 7px}.rating-form input:not([type=hidden]),.rating-form textarea{width:100%;padding:12px;border:1px solid #d7e3e8;border-radius:10px;font:inherit}.star-picker{display:flex;gap:6px}.star-picker button{border:0;background:#fff;color:#e7a72e;font-size:30px;cursor:pointer}.rating-list{display:grid;gap:12px;margin-top:20px}.rating-card{border-top:1px solid #e5edf0;padding-top:13px}.rating-card-top{display:flex;justify-content:space-between;gap:12px}.rating-card p{font-size:14px;color:#526974}.rating-card-stars{font-size:16px;letter-spacing:1px}@media(max-width:780px){.rating-layout{grid-template-columns:1fr}.rating-summary,.rating-form{padding:20px}}
+
+/* Brand image and language control */
+.brand-logo{display:block;width:52px;height:52px;object-fit:contain;flex:0 0 52px;border-radius:12px}
+.footer-brand .brand-logo{width:44px;height:44px;flex-basis:44px}
+.lang-toggle{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-weight:700;cursor:pointer}
+.lang-toggle:hover{border-color:var(--teal);color:var(--teal)}
+.nav{gap:18px}
+.doctor-photo{display:block;width:100%;height:430px;object-fit:cover;object-position:center top;border-radius:18px}
+.doctor-photo-card{width:min(430px,90%);padding:0;overflow:hidden;min-height:430px}
+@media(max-width:780px){.lang-toggle{margin-left:auto}.nav{gap:10px}.brand-logo{width:42px;height:42px;flex-basis:42px}.doctor-photo-card{width:min(100%,360px);min-height:360px}.doctor-photo{height:360px}}
