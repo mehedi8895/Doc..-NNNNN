@@ -48,11 +48,10 @@ setLanguage(sessionStorage.getItem("doctor-site-language")==="en"?"en":"bn");
 /* Load the administrator-selected logo from Supabase. */
 async function loadSiteBranding(){
  try{
-  const {data,error}=await supabaseClient.from("doctor_site_settings").select("logo_url").eq("id",1).maybeSingle();
-  if(error||!data?.logo_url)return;
-  document.querySelectorAll(".site-logo").forEach(img=>{img.src=data.logo_url;});
-  const favicon=document.querySelector("#site-favicon");
-  if(favicon)favicon.href=data.logo_url;
+  const {data,error}=await supabaseClient.from("doctor_site_settings").select("logo_url,doctor_photo_url").eq("id",1).maybeSingle();
+  if(error||!data)return;
+  if(data.logo_url){document.querySelectorAll(".site-logo").forEach(img=>{img.src=data.logo_url;});const favicon=document.querySelector("#site-favicon");if(favicon)favicon.href=data.logo_url;}
+  if(data.doctor_photo_url){document.querySelectorAll(".doctor-photo").forEach(img=>{img.src=data.doctor_photo_url;img.alt="ডাক্তারের প্রোফাইল ছবি";});}
  }catch(e){console.warn("Branding settings unavailable",e);}
 }
 loadSiteBranding();
