@@ -1,60 +1,16 @@
 "use strict";
-
-const menuButton = document.querySelector(".menu-toggle");
-const navLinks = document.querySelector("#nav-links");
-
-function closeMenu() {
-  if (!menuButton || !navLinks) return;
-  menuButton.setAttribute("aria-expanded", "false");
-  menuButton.setAttribute("aria-label", "মেনু খুলুন");
-  navLinks.classList.remove("is-open");
-}
-
-if (menuButton && navLinks) {
-  menuButton.addEventListener("click", () => {
-    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
-    menuButton.setAttribute("aria-expanded", String(!isOpen));
-    menuButton.setAttribute("aria-label", isOpen ? "মেনু খুলুন" : "মেনু বন্ধ করুন");
-    navLinks.classList.toggle("is-open", !isOpen);
-  });
-
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeMenu();
-      menuButton.focus();
-    }
-  });
-
-  document.addEventListener("click", (event) => {
-    if (
-      navLinks.classList.contains("is-open") &&
-      !navLinks.contains(event.target) &&
-      !menuButton.contains(event.target)
-    ) {
-      closeMenu();
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.matchMedia("(min-width: 781px)").matches) closeMenu();
-  });
-}
-
-const appointmentForm = document.querySelector("#appointment-form");
-const formMessage = document.querySelector("#form-message");
-
-if (appointmentForm && formMessage) {
-  appointmentForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    formMessage.textContent =
-      "এটি একটি ফর্ম—আপনার তথ্য পাঠানো হয়নি। কোনো তথ্য সার্ভারে পাঠানো বা সংরক্ষণ করা হয়নি।";
-    formMessage.classList.add("is-confirmed");
-  });
-}
-
-const year = document.querySelector("#year");
-if (year) year.textContent = String(new Date().getFullYear());
+const SUPABASE_URL="https://mrqaqppvqvytcromdigt.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_64Z97Zq7g8mVGIF3szoC9A_UTwQnFI3";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const menuButton=document.querySelector(".menu-toggle"),navLinks=document.querySelector("#nav-links");
+function closeMenu(){if(!menuButton||!navLinks)return;menuButton.setAttribute("aria-expanded","false");menuButton.setAttribute("aria-label","মেনু খুলুন");navLinks.classList.remove("is-open");}
+if(menuButton&&navLinks){menuButton.addEventListener("click",()=>{const open=menuButton.getAttribute("aria-expanded")==="true";menuButton.setAttribute("aria-expanded",String(!open));navLinks.classList.toggle("is-open",!open);});navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",closeMenu));document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMenu();menuButton.focus();}});window.addEventListener("resize",()=>{if(matchMedia("(min-width: 781px)").matches)closeMenu();});}
+const appointmentForm=document.querySelector("#appointment-form"),formMessage=document.querySelector("#form-message");
+if(appointmentForm&&formMessage)appointmentForm.addEventListener("submit",async e=>{e.preventDefault();const fd=new FormData(appointmentForm);const reasonMap={"সাধারণ যোগাযোগ":"general","চেম্বার সম্পর্কে":"chamber","অনলাইন পরামর্শ":"online"};const payload={patient_name:String(fd.get("name")||"").trim(),phone:String(fd.get("phone")||"").trim(),preferred_date:fd.get("date")||null,reason:reasonMap[fd.get("reason")]||"general",message:String(fd.get("message")||"").trim(),status:"pending"};const {error}=await supabaseClient.from("doctor_appointments").insert(payload);if(error){formMessage.textContent="আবেদন জমা হয়নি। তথ্য যাচাই করে আবার চেষ্টা করুন।";return;}formMessage.textContent="আপনার আবেদন সফলভাবে জমা হয়েছে। ধন্যবাদ।";formMessage.classList.add("is-confirmed");appointmentForm.reset();});
+const ratingForm=document.querySelector("#rating-form"),ratingMessage=document.querySelector("#rating-message"),ratingValue=document.querySelector("#rating-value"),starButtons=Array.from(document.querySelectorAll("[data-rating]"));
+function setStars(n){if(ratingValue)ratingValue.value=String(n);starButtons.forEach(btn=>btn.textContent=Number(btn.dataset.rating)<=n?"★":"☆");}
+starButtons.forEach(btn=>btn.addEventListener("click",()=>setStars(Number(btn.dataset.rating))));setStars(5);
+async function loadRatings(){const {data,error}=await supabaseClient.from("doctor_ratings").select("rating,display_name,comment,created_at").eq("status","published").order("created_at",{ascending:false}).limit(20);if(error)return;const avg=document.querySelector("#rating-average"),stars=document.querySelector("#rating-average-stars"),count=document.querySelector("#rating-count"),list=document.querySelector("#rating-list");if(!data.length)return;const mean=data.reduce((s,x)=>s+x.rating,0)/data.length;avg.textContent=mean.toFixed(1)+" / 5";stars.textContent="★".repeat(Math.round(mean))+"☆".repeat(5-Math.round(mean));count.textContent=data.length+"টি প্রকাশিত রেটিং";list.replaceChildren(...data.map(x=>{const card=document.createElement("article");card.className="rating-card";const top=document.createElement("div");top.className="rating-card-top";const name=document.createElement("strong");name.textContent=x.display_name;const score=document.createElement("span");score.className="rating-card-stars";score.textContent="★".repeat(x.rating)+"☆".repeat(5-x.rating);top.append(name,score);card.append(top);if(x.comment){const p=document.createElement("p");p.textContent=x.comment;card.append(p);}return card;}));}
+if(ratingForm)ratingForm.addEventListener("submit",async e=>{e.preventDefault();const {error}=await supabaseClient.from("doctor_ratings").insert({rating:Number(ratingValue.value),display_name:document.querySelector("#rating-name").value.trim()||"রোগী",comment:document.querySelector("#rating-comment").value.trim(),status:"pending"});if(error){ratingMessage.textContent="রেটিং জমা হয়নি। আবার চেষ্টা করুন।";return;}ratingMessage.textContent="ধন্যবাদ! যাচাইয়ের পর রেটিং প্রকাশ করা হবে।";ratingForm.reset();setStars(5);});
+loadRatings();
+const year=document.querySelector("#year");if(year)year.textContent=String(new Date().getFullYear());
