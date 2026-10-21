@@ -51,7 +51,7 @@ if (appointmentForm && formMessage) {
   appointmentForm.addEventListener("submit", (event) => {
     event.preventDefault();
     formMessage.textContent =
-      "এটি একটি demo form—আপনার তথ্য পাঠানো হয়নি। কোনো তথ্য সার্ভারে পাঠানো বা সংরক্ষণ করা হয়নি।";
+      "এটি একটি ফর্ম—আপনার তথ্য পাঠানো হয়নি। কোনো তথ্য সার্ভারে পাঠানো বা সংরক্ষণ করা হয়নি।";
     formMessage.classList.add("is-confirmed");
   });
 }
