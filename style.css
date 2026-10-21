@@ -13,3 +13,16 @@
 .doctor-photo{display:block;width:100%;height:430px;object-fit:cover;object-position:center top;border-radius:18px}
 .doctor-photo-card{width:min(430px,90%);padding:0;overflow:hidden;min-height:430px}
 @media(max-width:780px){.lang-toggle{margin-left:auto}.nav{gap:10px}.brand-logo{width:42px;height:42px;flex-basis:42px}.doctor-photo-card{width:min(100%,360px);min-height:360px}.doctor-photo{height:360px}}
+
+
+/* Language selector and administrator logo uploader */
+.language-switch{display:flex;align-items:center;gap:5px;margin-inline:4px}
+.language-switch .lang-toggle{border:1px solid #d5e5e8;background:#fff;color:#164b5a;border-radius:999px;padding:8px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;min-width:44px}
+.language-switch .lang-toggle.is-active{background:#123b56;color:#fff;border-color:#123b56}
+.logo-upload-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo-upload-row>img{width:100px;height:100px;object-fit:contain;border:1px solid #e0eaee;border-radius:14px;padding:8px;background:#f8fbfc}
+.logo-upload-row label{display:block;font-weight:600;margin-bottom:8px}
+.logo-upload-row input[type=file]{display:block;max-width:100%;margin-bottom:12px}
+.logo-upload-row .button{margin-top:4px}
+.logo-settings>p{color:#607580;line-height:1.6}
+@media(max-width:780px){.language-switch{margin:8px 0}.nav .language-switch{order:2}.nav .menu-toggle{order:3}}
